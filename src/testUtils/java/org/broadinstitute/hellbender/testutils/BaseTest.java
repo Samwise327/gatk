@@ -25,7 +25,15 @@ import java.nio.file.FileSystem;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Comparator;
+import java.util.Iterator;
+import java.util.LinkedHashMap;
+import java.util.LinkedHashSet;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
 import java.util.function.BiConsumer;
 import java.util.function.Consumer;
 
@@ -195,8 +203,8 @@ public abstract class BaseTest {
      * @param fileName the name of a file
      * @return a File resolved using getToolTestDataDir as the parent and fileName
      */
-    public GATKPath getTestFileGATKPath(String fileName) {
-        return new GATKPath(String.format("%s/%s", getToolTestDataDir(), fileName));
+    public GATKPath getTestPath(String fileName) {
+        return new GATKPath(getToolTestDataDir() + fileName);
     }
 
     /**
