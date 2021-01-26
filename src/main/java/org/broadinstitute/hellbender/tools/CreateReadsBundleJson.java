@@ -2,13 +2,23 @@ package org.broadinstitute.hellbender.tools;
 
 import htsjdk.samtools.SamFiles;
 import org.broadinstitute.barclay.argparser.Argument;
+import org.broadinstitute.barclay.argparser.CommandLineProgramProperties;
 import org.broadinstitute.hellbender.cmdline.CommandLineProgram;
 import org.broadinstitute.hellbender.cmdline.StandardArgumentDefinitions;
+import org.broadinstitute.hellbender.cmdline.programgroups.CoverageAnalysisProgramGroup;
 import org.broadinstitute.hellbender.engine.GATKPath;
 import org.broadinstitute.hellbender.exceptions.UserException;
 import org.broadinstitute.hellbender.utils.bundle.ReadsBundle;
 import org.broadinstitute.hellbender.utils.io.IOUtils;
+import picard.cmdline.programgroups.OtherProgramGroup;
 
+//TODO this should be in a utility group
+//TODO: can this be general rather than reads bundle specific ? we need one for other types of bundles
+@CommandLineProgramProperties(
+        summary = "Create a reads bundle file.",
+        oneLineSummary = "Create a reads bundle file.",
+        programGroup = OtherProgramGroup.class
+)
 public class CreateReadsBundleJson extends CommandLineProgram {
     public static final String NO_INDEX_FULL_NAME = "no-index";
 

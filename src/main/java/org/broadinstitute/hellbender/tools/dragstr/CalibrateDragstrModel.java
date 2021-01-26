@@ -467,9 +467,7 @@ public class CalibrateDragstrModel extends GATKTool {
         final AbsoluteCoordinates absoluteCoordinates = AbsoluteCoordinates.of(dictionary);
 
         final List<SimpleInterval> shards = shardIntervals(intervals, shardSize);
-        try (final ReadsDataSourcePool readsDataSourcePool = new ReadsDataSourcePool(
-                readArguments.getReadPaths().stream().map(GATKPath::toPath).collect(Collectors.toList()))) {
-
+        try (final ReadsDataSourcePool readsDataSourcePool = new ReadsDataSourcePool(readArguments.getReadPaths())) {
             final AtomicLong numberBasesProcessed = new AtomicLong(0);
             return Utils.runInParallel(threads, () ->
                         shards.parallelStream()

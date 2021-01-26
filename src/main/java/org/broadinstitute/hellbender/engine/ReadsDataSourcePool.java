@@ -15,7 +15,7 @@ import java.util.stream.Collectors;
  */
 public final class ReadsDataSourcePool extends GenericObjectPool<ReadsPathDataSource> implements AutoCloseable {
 
-    public ReadsDataSourcePool(final List<Path> readPaths) {
+    public ReadsDataSourcePool(final List<GATKPath> readPaths) {
         super(new Factory(readPaths));
         setWhenExhaustedAction(WHEN_EXHAUSTED_GROW);
     }
@@ -59,8 +59,8 @@ public final class ReadsDataSourcePool extends GenericObjectPool<ReadsPathDataSo
 
         private final List<ReadIndexPair> paths;
 
-        private Factory(final List<Path> paths) {
-            this.paths = paths.stream().map(p -> new ReadIndexPair(new GATKPath(p.toUri().toString()), null)).collect(Collectors.toList());
+        private Factory(final List<GATKPath> paths) {
+            this.paths = paths.stream().map(p -> new ReadIndexPair(p, null)).collect(Collectors.toList());
         }
 
         @Override
