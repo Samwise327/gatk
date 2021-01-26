@@ -2,12 +2,13 @@ package org.broadinstitute.hellbender.engine;
 
 import org.apache.commons.pool.BasePoolableObjectFactory;
 import org.apache.commons.pool.impl.GenericObjectPool;
+import org.broadinstitute.hellbender.cmdline.argumentcollections.ReadIndexPair;
 import org.broadinstitute.hellbender.exceptions.GATKException;
 import org.broadinstitute.hellbender.utils.AutoCloseableReference;
 
 import java.nio.file.Path;
-import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * Pool of {@link ReadsDataSource} instances.
@@ -56,10 +57,10 @@ public final class ReadsDataSourcePool extends GenericObjectPool<ReadsPathDataSo
 
     private static class Factory extends BasePoolableObjectFactory<ReadsPathDataSource> {
 
-        private final List<Path> paths;
+        private final List<ReadIndexPair> paths;
 
         private Factory(final List<Path> paths) {
-            this.paths = new ArrayList<>(paths);
+            this.paths = paths.stream().map(p -> new ReadIndexPair(new GATKPath(p.toUri().toString()), null)).collect(Collectors.toList());
         }
 
         @Override

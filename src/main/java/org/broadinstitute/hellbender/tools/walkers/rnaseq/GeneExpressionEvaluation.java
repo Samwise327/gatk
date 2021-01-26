@@ -559,8 +559,8 @@ public final class GeneExpressionEvaluation extends ReadWalker {
         logger.info(String.format("Writing read counts to %s...", outputCountsFile.getAbsolutePath()));
         try (final FragmentCountWriter writer = new FragmentCountWriter(outputCountsFile.toPath(), sampleName, featureLabelKey)) {
             int i=0;
-            for (final GATKPath input_bam: readArguments.getReadPathSpecifiers()) {
-                writer.writeMetadata("input_bam_"+i, input_bam.toString());
+            for (final GATKPath input_bam: readArguments.getReadPaths()) {
+                writer.writeMetadata("input_bam_"+i, input_bam.getRawInputString());
                 i++;
             }
             writer.writeMetadata("annotation_file", gffFile.toString());
